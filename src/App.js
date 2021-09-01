@@ -23,21 +23,31 @@ function App() {
    })
    setTimeout(() => {
      setAlert(null);
-   }, 2500);
+   }, 1500);
  }
 
- const toggleMode =()=>{
+ const removeBodyClasses=()=>{
+  document.body.classList.remove('bg-light')
+  document.body.classList.remove('bg-danger')
+  document.body.classList.remove('bg-info')
+  document.body.classList.remove('bg-warning')
+  document.body.classList.remove('bg-dark')
+  document.body.classList.remove('bg-primary')
+ }
+ const toggleMode =(cls)=>{
+   removeBodyClasses();
+   document.body.classList.add('bg-'+cls)
    if (mode === 'light'){
      setMode('dark')
      document.body.style.backgroundColor = 'black';
      showAlert("Dark Mode has been enabled" , "Success")
-     document.title="MyText - (Dark Mode)"
+   
    }
   else {
     setMode('light')
     document.body.style.backgroundColor = 'white';
     showAlert("Light Mode has been enabled" , "Success")
-    document.title="MyText - (Light Mode)"
+    
   }
   
 
@@ -48,16 +58,16 @@ function App() {
     <>
    
     <Router>
-     <Navbar title="YourText" mode={mode} toggleMode={toggleMode} />
+     <Navbar  title="YourText"  mode={mode} toggleMode={toggleMode} />
      <Alert alert={alert}/>
      
      <div className="container my-3">
      <Switch>
        <Route exact path="/about">
-       <About/>
+       <About  heading="About Us" mode={mode} />
        </Route>
-       <Route exact path="/home">
-       <TextForm showAlert={showAlert} heading="Enter Text to Analyze" mode={mode} />
+       <Route exact path="">
+       <TextForm showAlert={showAlert} heading="Try YourText - Word Counter,Character Counter,Remove extra spaces" mode={mode} />
        </Route>
     </Switch>
      </div>
